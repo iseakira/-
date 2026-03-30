@@ -1,10 +1,21 @@
-class Score {}
+class Score {
+  get totalScore() {
+    const foods = new Foods();
+    return foods.activeElementsScore.reduce((total, score) => total + score, 0);
+  }
+  render() {
+    document.querySelector('.score__number')!.textContent =
+      this.totalScore.toString();
+  }
+}
 class Food {
   constructor(public element: HTMLDivElement) {
     element.addEventListener('click', this.clickEventHandler.bind(this));
   }
   clickEventHandler = () => {
     this.element.classList.toggle('food--active');
+    const score = new Score();
+    score.render();
   };
 }
 class Foods {
